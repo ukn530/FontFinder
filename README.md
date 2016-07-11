@@ -13,6 +13,6 @@ Sketchのページの中で使われているフォントを一覧化し、指�
 
 ## Instration
 
-Download zip [download](https://github.com/ukn530/FontSelector/archive/master.zip), unzip the archive and double click .sketchplugin file.
+Download [zip](https://github.com/ukn530/FontSelector/archive/master.zip), unzip the archive and double click .sketchplugin file.
 
-zipをダウンロードして[download](https://github.com/ukn530/FontSelector/archive/master.zip)、解凍し、 .sketchpluginファイルをダブルクリックして下さい。
+[zip](https://github.com/ukn530/FontSelector/archive/master.zip)をダウンロードして解凍し、.sketchpluginファイルをダブルクリックして下さい。
