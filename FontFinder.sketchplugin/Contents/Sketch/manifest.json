@@ -1,0 +1,22 @@
+{
+  "name": "Font Finder",
+  "description": "This plugin can find fonts used in a current page",
+  "author": "Tatsuya Uchida",
+  "homepage": "http://ukn.cc",
+  "version": "1.0",
+  "identifier": "cc.ukn.font-finder",
+  "bundleVersion": 1,
+  "commands" : [
+    {
+      "name" : "Font Finder",
+      "identifier" : "findfontandselect",
+      "script" : "findFontName.sketchscript",
+      "shortcut": "cmd option shift f",
+      "handler" : "onRun"
+    }
+  ],
+  "menu": {
+    "items": ["findfontandselect"],
+    "isRoot": true
+  }
+}
