@@ -1,20 +1,23 @@
 // 選択したいフォント名の一部
-var searchFontName = "W3";
-
-
-
+var searchFontName = [];
 var doc = context.document;
 var page = doc.currentPage();
-var artboard = doc.currentPage().currentArtboard()
-var includedLayered = artboard.layers().count();
 var count = 1;
 var switchOfSearch = 0;
 var includedFontName = [];
 var userInput;
-var fontNames;
+var SELECT, READY_TO_SEARCH, CANCELLED, NOT_READY;
 
+initialise(context);
+userInterfaceLoop();
 
-makeUserInterface();
+function initialise(context) {
+
+    SELECT = 1000;
+    READY_TO_SEARCH = true;
+    CANCELLED = false;
+    NOT_READY = null;
+}
 
 
 function userInterfaceLoop() {
@@ -34,16 +37,19 @@ function userInterfaceLoop() {
 
             // Reload the interface
             case NOT_READY:
-                alert("Find or replace cannot be blank");
+                log('not ready');
+                uiResponse = CANCELLED;
+                //alert("Find or replace cannot be blank");
                 break;
 
             // Let's go
             case READY_TO_SEARCH:
-                doFindAndReplace();
+                log('ready to search');
                 break;
 
             // Cancelled
             case CANCELLED:
+                log('Cancelled');
                 [document showMessage: "Cancelled"];
                 break;
         }
@@ -51,7 +57,7 @@ function userInterfaceLoop() {
 }
 
 
-function makeUserInterface() {
+function createUserInterface() {
 
     featureSearchFontName();
 
@@ -74,8 +80,38 @@ function makeUserInterface() {
     userInput.addButtonWithTitle('選択する');
     userInput.addButtonWithTitle('キャンセル');
 
-    // 実行
-    userInput.runModal();
+    return userInput;
+}
+
+function processButtonClick(modal, buttonClick) {
+
+    var result;
+
+    // We're only concerned if the replace all button has been clicked
+    if (buttonClick === SELECT) {
+
+        for (var i = 0; i < includedFontName.length; i++) {
+            if ([[[modal viewAtIndex: i] selectedCell] state] == true) {
+                searchFontName.push([[[modal viewAtIndex: i] selectedCell] title]);
+            }
+        }
+
+        featureSelectSpecificFontTextLayer();
+        log('clicked');
+        if (searchFontName.length > 0) {
+            result = READY_TO_SEARCH;
+        } else {
+            result = NOT_READY;
+        }
+
+    } else {
+
+        // Cancel button pressed
+        result = CANCELLED;
+
+    }
+
+    return result;
 }
 
 
@@ -108,17 +144,17 @@ function showFontName(layer) {
 
     if (!isExistFont) {
         includedFontName.push(layer.fontPostscriptName());
-        fontNames += layer.fontPostscriptName();
     }
 }
 
 
 // 特定のフォント名のレイヤーを選択
 function selectTextLayer(layer) {
-    if (layer.fontPostscriptName().match(searchFontName)) {
-        log(count + '. ' + layer.stringValue());
-        layer.select_byExpandingSelection(true, true);
-        count++;
+
+    for (var i = 0; i < searchFontName.length; i++) {
+        if (layer.fontPostscriptName().match(searchFontName[i])) {
+            layer.select_byExpandingSelection(true, true);
+        }
     }
 }
 
