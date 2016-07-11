@@ -8,6 +8,7 @@ Sketchのページの中で使われているフォントを一覧化し、指�
 ## Change Log
 
 **July 12, 2016**
+
 *Release 1.0
 
 
