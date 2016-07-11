@@ -3,7 +3,6 @@ var onRun = function (context) {
     var searchFontName = [];
     var doc = context.document;
     var page = doc.currentPage();
-    var count = 1;
     var switchOfSearch = 0;
     var includedFontName = [];
     var userInput;
@@ -38,21 +37,17 @@ var onRun = function (context) {
 
                 // Reload the interface
                 case NOT_READY:
-                    log('not ready');
-                    uiResponse = CANCELLED;
-                    //alert("Find or replace cannot be blank");
-                    break;
+                uiResponse = CANCELLED;
+                break;
 
                 // Let's go
                 case READY_TO_SEARCH:
-                    log('ready to search');
-                    break;
+                break;
 
                 // Cancelled
                 case CANCELLED:
-                    log('Cancelled');
-                    [document showMessage: "Cancelled"];
-                    break;
+                [document showMessage: "Cancelled"];
+                break;
             }
         }
     }
@@ -60,37 +55,41 @@ var onRun = function (context) {
 
     function createUserInterface() {
 
+        // pageで使われているフォントを検索
         featureSearchFontName();
 
         // JS Style
         userInput = COSAlertWindow.new();
 
         //ダイアログタイトル
-        userInput.setMessageText( 'フォントを選択する' );
-        userInput.setInformativeText("以下はこのページに含まれるフォントです。");
+        userInput.setMessageText('Select Font');
+        userInput.setInformativeText('these are fonts used in this page.');
 
         for (var i = 0; i < includedFontName.length; i++) {
             var checkbox = NSButton.alloc().initWithFrame( NSMakeRect( 0, i * 24, 300, 18 ) );
             checkbox.setButtonType( NSSwitchButton );
             checkbox.setTitle(includedFontName[i]);
-            checkbox.setTag( 'value' );
-            checkbox.setState( false );
+            checkbox.setState(false);
             userInput.addAccessoryView( checkbox );
         }
 
         // ボタン
-        userInput.addButtonWithTitle('選択する');
-        userInput.addButtonWithTitle('キャンセル');
+        userInput.addButtonWithTitle('Select');
+        userInput.addButtonWithTitle('Cancel');
 
         return userInput;
     }
 
+    // ボタンが押されたら
     function processButtonClick(modal, buttonClick) {
 
         var result;
 
-        // We're only concerned if the replace all button has been clicked
+        // ボタンが押されたら
         if (buttonClick === SELECT) {
+
+            // 選択されているレイヤーを解除
+            page.deselectAllLayers()
 
             for (var i = 0; i < includedFontName.length; i++) {
                 if ([[[modal viewAtIndex: i] selectedCell] state] == true) {
@@ -98,19 +97,17 @@ var onRun = function (context) {
                 }
             }
 
+            // フォントを選択
             featureSelectSpecificFontTextLayer();
-            log('clicked');
+
             if (searchFontName.length > 0) {
                 result = READY_TO_SEARCH;
             } else {
                 result = NOT_READY;
             }
-
         } else {
-
             // Cancel button pressed
             result = CANCELLED;
-
         }
 
         return result;
@@ -129,7 +126,6 @@ var onRun = function (context) {
 
     function featureSelectSpecificFontTextLayer () {
         switchOfSearch = 2;
-        log(searchFontName + 'をフォント名に含むテキストレイヤーを選択しました。\n');
         searchInLayer(page);
     }
 
@@ -175,30 +171,27 @@ var onRun = function (context) {
                 } else if (switchOfSearch == 2) {
                     selectTextLayer(layer);
                 }
-
                 break;
 
             // If we've started our search at the document root, loop through the pages
             case MSDocument:
-                var documentPages = [layer pages];
-                for (var i = 0; i < [documentPages count]; i++) {
-                    var documentPage = [documentPages objectAtIndex:i];
-                    searchInLayer(documentPage);
-                }
-                break;
+            var documentPages = [layer pages];
+            for (var i = 0; i < [documentPages count]; i++) {
+                var documentPage = [documentPages objectAtIndex:i];
+                searchInLayer(documentPage);
+            }
+            break;
 
             // Otherwise everything below that is an alias for layers anyway so we can treat them the same and loop through any sublayers
             case MSPage:
             case MSLayerGroup:
             case MSArtboardGroup:
-                var sublayers = [layer layers];
-                for (var i = 0; i < [sublayers count]; i++) {
-                    var sublayer = [sublayers objectAtIndex: i];
-                    searchInLayer(sublayer);
-                }
-                break;
+            var sublayers = [layer layers];
+            for (var i = 0; i < [sublayers count]; i++) {
+                var sublayer = [sublayers objectAtIndex: i];
+                searchInLayer(sublayer);
+            }
+            break;
         }
-
     }
-
 }
