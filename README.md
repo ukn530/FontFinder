@@ -2,7 +2,13 @@
 
 This plugin show fonts used in a current page and make chosen fonts selected. You can change a specific font at a time or find missing font in artboards.
 
+Symbols page is not available yet.
+
 Sketchのページの中で使われているフォントを一覧化し、指定したフォントを選択状態にします。特定のフォントを一括変換したり、いらないけどどこにあるか分からないフォントを探すのに使えます。
+
+Symbolsページ内は未対応です。
+
+![Screenshot](screenshot.png)
 
 
 ## Change Log

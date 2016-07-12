@@ -62,8 +62,8 @@ var onRun = function (context) {
         userInput = COSAlertWindow.new();
 
         //ダイアログタイトル
-        userInput.setMessageText('Select Font');
-        userInput.setInformativeText('these are fonts used in this page.');
+        userInput.setMessageText('Font Finder');
+        //userInput.setInformativeText('these are fonts used in this page.');
 
         for (var i = 0; i < includedFontName.length; i++) {
             var checkbox = NSButton.alloc().initWithFrame( NSMakeRect( 0, i * 24, 300, 18 ) );
