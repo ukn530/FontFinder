@@ -1,8 +1,8 @@
 # Font Finder Sketch Plugin
 
-This plugin show fonts used in a current page and make chosen fonts selected. You can change a specific font at a time or find missing font in artboards.
+This plugin shows fonts used in a current page and make chosen fonts selected. You can change a specific font at a time or find missing fonts in artboards.
 
-Sketchのページの中で使われているフォントを一覧化し、指定したフォントを選択状態にします。特定のフォントを一括変換したり、いらないけどどこにあるか分からないフォントを探すのに使えます。
+Sketchのページの中で使われているフォントを一覧化し、指定したフォントを選択状態にします。特定のフォントを一括変換したり、いらないけどどこにあるか分からないフォントを探すのに便利です。
 
 
 ![Screenshot](screenshot.png)
