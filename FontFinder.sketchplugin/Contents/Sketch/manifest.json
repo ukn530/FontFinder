@@ -3,9 +3,9 @@
   "description": "This plugin can find fonts used in a current page",
   "author": "Tatsuya Uchida",
   "homepage": "http://ukn.cc",
-  "version": "1.0",
+  "version": "1.1",
   "identifier": "cc.ukn.font-finder",
-  "bundleVersion": 1,
+  "bundleVersion": 2,
   "commands" : [
     {
       "name" : "Font Finder",
