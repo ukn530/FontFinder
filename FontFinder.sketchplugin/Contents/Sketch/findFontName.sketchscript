@@ -46,7 +46,6 @@ var onRun = function (context) {
 
                 // Cancelled
                 case CANCELLED:
-                [document showMessage: "Cancelled"];
                 break;
             }
         }
@@ -159,7 +158,6 @@ var onRun = function (context) {
 
 
     function searchInLayer(layer) {
-
         // Determine the type of layer we're looking at
         switch ([layer class]) {
 
@@ -185,6 +183,7 @@ var onRun = function (context) {
             // Otherwise everything below that is an alias for layers anyway so we can treat them the same and loop through any sublayers
             case MSPage:
             case MSLayerGroup:
+            case MSSymbolMaster:
             case MSArtboardGroup:
             var sublayers = [layer layers];
             for (var i = 0; i < [sublayers count]; i++) {
