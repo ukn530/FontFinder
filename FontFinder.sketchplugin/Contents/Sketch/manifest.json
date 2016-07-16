@@ -1,11 +1,12 @@
 {
   "name": "Font Finder",
-  "description": "This plugin can find fonts used in a current page",
+  "description": "Plugin to find and select fonts used in a current page",
   "author": "Tatsuya Uchida",
-  "homepage": "http://ukn.cc",
+  "homepage": "https://github.com/ukn530/FontFinder",
   "version": "1.1",
   "identifier": "cc.ukn.font-finder",
-  "bundleVersion": 2,
+  "updateURL": "https://raw.githubusercontent.com/ukn530/FontFinder/master/FontFinder.sketchplugin/Contents/Sketch/manifest.json",
+  "bundleVersion": 3,
   "commands" : [
     {
       "name" : "Font Finder",
