@@ -1,22 +1,26 @@
 var onRun = function (context) {
 
-    var searchFontName = [];
     var doc = context.document;
     var page = doc.currentPage();
     var switchOfSearch = 0;
     var includedFontName = [];
-    var userInput;
+    var selectingFontName = [];
+    var userInterface;
     var SELECT, READY_TO_SEARCH, CANCELLED, NOT_READY;
+
 
     initialise(context);
     userInterfaceLoop();
 
-    function initialise(context) {
 
+    function initialise(context) {
         SELECT = 1000;
         READY_TO_SEARCH = true;
         CANCELLED = false;
         NOT_READY = null;
+
+        // Get font names
+        featureSearchFontName();
     }
 
 
@@ -26,7 +30,7 @@ var onRun = function (context) {
 
         while (uiResponse === NOT_READY) {
 
-            // Creatte the interface
+            // Create the interface
             var modal = createUserInterface();
 
             // Show it and process the form
@@ -35,7 +39,7 @@ var onRun = function (context) {
             // Process the response
             switch (uiResponse) {
 
-                // Reload the interface
+                // Cancelled
                 case NOT_READY:
                 uiResponse = CANCELLED;
                 break;
@@ -54,56 +58,63 @@ var onRun = function (context) {
 
     function createUserInterface() {
 
-        // pageで使われているフォントを検索
-        featureSearchFontName();
+        userInterface = COSAlertWindow.new();
 
-        // JS Style
-        userInput = COSAlertWindow.new();
+        // Title
+        userInterface.setMessageText('Font Finder');
 
-        //ダイアログタイトル
-        userInput.setMessageText('Font Finder');
-        //userInput.setInformativeText('these are fonts used in this page.');
-
-        for (var i = 0; i < includedFontName.length; i++) {
-            var checkbox = NSButton.alloc().initWithFrame( NSMakeRect( 0, i * 24, 300, 18 ) );
-            checkbox.setButtonType( NSSwitchButton );
-            checkbox.setTitle(includedFontName[i]);
-            checkbox.setState(false);
-            userInput.addAccessoryView( checkbox );
+        if (includedFontName.length == 0) {
+            userInterface.setInformativeText('This page dosen\'t have any fonts.');
+        } else {
+            userInterface.setInformativeText('You can find and select font items.');
         }
 
-        // ボタン
-        userInput.addButtonWithTitle('Select');
-        userInput.addButtonWithTitle('Cancel');
+        // Checkbox
+        for (var i = 0; i < includedFontName.length; i++) {
+            var checkbox = NSButton.alloc().initWithFrame(NSMakeRect( 0, i * 24, 300, 18 ));
+            checkbox.setButtonType(NSSwitchButton);
+            checkbox.setTitle(includedFontName[i]);
+            checkbox.setState(false);
+            userInterface.addAccessoryView( checkbox );
+        }
 
-        return userInput;
+        // Button
+
+        if (includedFontName.length == 0) {
+            userInterface.addButtonWithTitle('OK');
+        } else {
+            userInterface.addButtonWithTitle('Select');
+            userInterface.addButtonWithTitle('Cancel');
+        }
+
+        return userInterface;
     }
 
-    // ボタンが押されたら
+
     function processButtonClick(modal, buttonClick) {
 
         var result;
 
-        // ボタンが押されたら
         if (buttonClick === SELECT) {
 
-            // 選択されているレイヤーを解除
+            // Deselect All Layers
             page.deselectAllLayers()
 
             for (var i = 0; i < includedFontName.length; i++) {
                 if ([[[modal viewAtIndex: i] selectedCell] state] == true) {
-                    searchFontName.push([[[modal viewAtIndex: i] selectedCell] title]);
+                    selectingFontName.push([[[modal viewAtIndex: i] selectedCell] title]);
                 }
             }
 
-            // フォントを選択
+            // Select Font Layers
             featureSelectSpecificFontTextLayer();
 
-            if (searchFontName.length > 0) {
+            if (selectingFontName.length > 0) {
                 result = READY_TO_SEARCH;
             } else {
                 result = NOT_READY;
             }
+
         } else {
             // Cancel button pressed
             result = CANCELLED;
@@ -113,47 +124,16 @@ var onRun = function (context) {
     }
 
 
-
     function featureSearchFontName () {
         switchOfSearch = 1;
         searchInLayer(page);
         includedFontName.sort();
-        log(includedFontName);
     }
-
 
 
     function featureSelectSpecificFontTextLayer () {
         switchOfSearch = 2;
         searchInLayer(page);
-    }
-
-
-
-
-    function showFontName(layer) {
-        var isExistFont = false;
-
-        for (var i = 0; i < includedFontName.length; i++) {
-            if (includedFontName[i] == layer.fontPostscriptName()) {
-                isExistFont = true;
-            }
-        }
-
-        if (!isExistFont) {
-            includedFontName.push(layer.fontPostscriptName());
-        }
-    }
-
-
-    // 特定のフォント名のレイヤーを選択
-    function selectTextLayer(layer) {
-
-        for (var i = 0; i < searchFontName.length; i++) {
-            if (layer.fontPostscriptName().match(searchFontName[i])) {
-                layer.select_byExpandingSelection(true, true);
-            }
-        }
     }
 
 
@@ -163,13 +143,12 @@ var onRun = function (context) {
 
             // Text layer - this is the important one
             case MSTextLayer:
-                //log(layer.stringValue());
-                if (switchOfSearch == 1) {
-                    showFontName(layer);
-                } else if (switchOfSearch == 2) {
-                    selectTextLayer(layer);
-                }
-                break;
+            if (switchOfSearch == 1) {
+                showFontName(layer);
+            } else if (switchOfSearch == 2) {
+                selectTextLayer(layer);
+            }
+            break;
 
             // If we've started our search at the document root, loop through the pages
             case MSDocument:
@@ -191,6 +170,31 @@ var onRun = function (context) {
                 searchInLayer(sublayer);
             }
             break;
+        }
+    }
+
+
+    function showFontName(layer) {
+        var isExistFont = false;
+
+        for (var i = 0; i < includedFontName.length; i++) {
+            if (includedFontName[i] == layer.fontPostscriptName()) {
+                isExistFont = true;
+            }
+        }
+
+        if (!isExistFont) {
+            includedFontName.push(layer.fontPostscriptName());
+        }
+    }
+
+
+    function selectTextLayer(layer) {
+
+        for (var i = 0; i < selectingFontName.length; i++) {
+            if (layer.fontPostscriptName().match(selectingFontName[i])) {
+                layer.select_byExpandingSelection(true, true);
+            }
         }
     }
 }
