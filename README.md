@@ -14,8 +14,6 @@ Sketchのページの中で使われているフォントを一覧化し、指�
 
 Fixed a bug for Sketch 45
 
-Added an updating system for Sketch 45
-
 **July 13, 2016**
 
 Symbol page available
