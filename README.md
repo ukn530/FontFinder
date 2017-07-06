@@ -10,7 +10,7 @@ Sketchのページの中で使われているフォントを一覧化し、指�
 
 ## Change Log
 
-**July 13, 2016**
+**July 6, 2017**
 
 Fixed a bug for Sketch 45
 
