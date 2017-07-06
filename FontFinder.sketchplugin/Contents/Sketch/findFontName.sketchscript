@@ -1,5 +1,12 @@
 var onRun = function (context) {
 
+    // CRAZY CODE: confusing how to use context
+    // This 3 lines use just for deselect layers
+    // but I should use these for all of code
+    var sketch = context.api()
+    var document = sketch.selectedDocument;
+    var selection = document.selectedLayers;
+
     var doc = context.document;
     var page = doc.currentPage();
     var switchOfSearch = 0;
@@ -99,8 +106,8 @@ var onRun = function (context) {
 
         if (buttonClick === SELECT) {
 
-            // Deselect All Layers
-            page.deselectAllLayers()
+            // Deselect selection
+            selection.clear();
 
             for (var i = 0; i < includedFontName.length; i++) {
                 if ([[[modal viewAtIndex: i] selectedCell] state] == true) {
