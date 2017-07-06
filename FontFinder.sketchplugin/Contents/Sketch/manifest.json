@@ -3,15 +3,15 @@
   "description": "Plugin to find and select fonts used in a current page",
   "author": "Tatsuya Uchida",
   "homepage": "https://github.com/ukn530/FontFinder",
-  "version": "1.1",
+  "version": "1.2",
   "identifier": "cc.ukn.font-finder",
-  "updateURL": "https://raw.githubusercontent.com/ukn530/FontFinder/master/FontFinder.sketchplugin/Contents/Sketch/manifest.json",
-  "bundleVersion": 3,
+  "appcast": "https://raw.githubusercontent.com/ukn530/FontFinder/master/appcast.xml",
+  "bundleVersion": 4,
   "commands" : [
     {
       "name" : "Font Finder",
       "identifier" : "findfontandselect",
-      "script" : "findFontName.sketchscript",
+      "script" : "findFontName.cocoascript",
       "shortcut": "cmd option shift f",
       "handler" : "onRun"
     }

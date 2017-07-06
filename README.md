@@ -1,6 +1,6 @@
 # Font Finder Sketch Plugin
 
-This plugin shows fonts used in a current page and make chosen fonts selected. You can change a specific font at a time or find missing fonts in artboards.
+This plugin lists the fonts used in Sketch's page and puts the specified font into the selected state. It is useful for converting specific fonts in bulk, or for finding fonts that you do not know where.
 
 Sketchのページの中で使われているフォントを一覧化し、指定したフォントを選択状態にします。特定のフォントを一括変換したり、いらないけどどこにあるか分からないフォントを探すのに便利です。
 
@@ -9,6 +9,12 @@ Sketchのページの中で使われているフォントを一覧化し、指�
 
 
 ## Change Log
+
+**July 13, 2016**
+
+Fixed a bug for Sketch 45
+
+Added an updating system for Sketch 45
 
 **July 13, 2016**
 
