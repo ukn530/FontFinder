@@ -25,6 +25,6 @@ Release
 
 ## Instration
 
-Download [zip](https://github.com/ukn530/FontSelector/archive/master.zip), unzip the archive and double click .sketchplugin file.
+Download [zip](https://github.com/ukn530/FontFinder/archive/master.zip), unzip the archive and double click .sketchplugin file.
 
-[zip](https://github.com/ukn530/FontSelector/archive/master.zip)をダウンロードして解凍し、.sketchpluginファイルをダブルクリックして下さい。
+[zip](https://github.com/ukn530/FontFinder/archive/master.zip)をダウンロードして解凍し、.sketchpluginファイルをダブルクリックして下さい。
