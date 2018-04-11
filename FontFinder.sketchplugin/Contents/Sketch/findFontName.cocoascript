@@ -189,6 +189,9 @@ var onRun = function (context) {
         //and then use fontcheck{} to help remove duplicated font names
         //P.S. 
         //The "layer.attributedString().unavailableFontNames()" shows the missed font names in one textlayer
+        if (!layer.attributedString()) {
+            return;
+        }
         var tempFontName = layer.attributedString().fontNames().toString().replace('{(','').replace(')}','').replace(/\n/g,'').replace(/\u0022/g,'').split(',');
         for(var z=0;z<tempFontName.length;z++){
             var fontName = tempFontName[z];                 
@@ -202,6 +205,9 @@ var onRun = function (context) {
 
     function selectTextLayer(layer) {
         //Some font names contents '"', I use '.replace(/\s+/g,"")' to clean up blanks in the store font names to get accurate search results
+        if (!layer.attributedString()) {
+            return;
+        }
         for (var i = 0; i < selectingFontName.length; i++) {
             if (layer.attributedString().fontNames().toString().indexOf(selectingFontName[i].replace(/\s+/g,"")) != -1) {
                 layer.select_byExpandingSelection(true, true);
