@@ -23,7 +23,7 @@ Symbol page available
 Release
 
 
-## Instration
+## Installation
 
 Download [zip](https://github.com/ukn530/FontFinder/archive/master.zip), unzip the archive and double click .sketchplugin file.
 
