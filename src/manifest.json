@@ -5,7 +5,7 @@
     {
       "name": "my-command",
       "identifier": "fontfinder.my-command-identifier",
-      "script": "my-command.js"
+      "script": "./my-command.js"
     }
   ],
   "menu": {
@@ -13,13 +13,5 @@
     "items": [
       "fontfinder.my-command-identifier"
     ]
-  },
-  "version": "0.1.0",
-  "description": "",
-  "name": "FontFinder",
-  "identifier": "FontFinder",
-  "disableCocoaScriptPreprocessor": true,
-  "appcast": "https://raw.githubusercontent.com//master/.appcast.xml",
-  "author": "Tatsuya Uchida",
-  "authorEmail": "ukn530@gmail.com"
+  }
 }
