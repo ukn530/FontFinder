@@ -81,7 +81,7 @@ var onRun = function (context) {
         // Checkbox
         for (var i = 0; i < includedFontName.length; i++) {
             var checkbox = NSButton.alloc().initWithFrame(NSMakeRect( 0, i * 24, 300, 18 ));
-            checkbox.setButtonType(NSSwitchButton);
+            checkbox.setButtonType(NSButtonTypeSwitch);
             checkbox.setTitle(includedFontName[i]);
             checkbox.setState(false);
             userInterface.addAccessoryView( checkbox );
