@@ -9,6 +9,9 @@ Sketchのページの中で使われているフォントを一覧化し、指�
 
 
 ## Change Log
+**June 4, 2020**
+
+Fixed a bug for Sketch 66.1
 
 **July 6, 2017**
 
