@@ -10,6 +10,10 @@ Sketchのページの中で使われているフォントを一覧化し、指�
 
 ## Change Log
 
+**April 15, 2020**
+
+Fix for macOS Catalina by https://github.com/himynameisubik
+
 **July 6, 2017**
 
 Fixed a bug for Sketch 45
