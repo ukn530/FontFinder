@@ -15,6 +15,8 @@ This plugin lists the fonts used in Sketch's page and puts the specified font in
 
 Fix for Sketch 66.1
 
+Add the logo designed by Eli Azee
+
 **April 15, 2020**
 
 Fix for macOS Catalina by https://github.com/himynameisubik
